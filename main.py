@@ -6,8 +6,13 @@ from telegram.error import (TelegramError, Unauthorized, BadRequest,
                             TimedOut, ChatMigrated, NetworkError)
 from telegram.ext import CommandHandler
 
+logging.basicConfig(format='%(asctime)s:%(name)s:%(levelname)s - '
+    '%(message)s', level=logging.INFO)
+logger = logging.getLogger('chatbot3_logger')
+
 
 def error_callback(update, context):
+    logger.warning('Update "%s" caused error "%s"', update, error)
     try:
         raise context.error
     except Unauthorized:
@@ -45,8 +50,6 @@ def run_bot(token):
 def main():
     load_dotenv()
     bot_token = os.getenv("BOT_TOKEN")
-    logging.basicConfig(format='%(asctime)s:%(name)s:%(levelname)s - '
-        '%(message)s', level=logging.INFO)
     run_bot(bot_token)
 
 
