@@ -1,10 +1,10 @@
 import os
 from dotenv import load_dotenv
 import logging
-from telegram.ext import Updater
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram.error import (TelegramError, Unauthorized, BadRequest, 
                             TimedOut, ChatMigrated, NetworkError)
-from telegram.ext import CommandHandler
+
 
 logging.basicConfig(format='%(asctime)s:%(name)s:%(levelname)s - '
     '%(message)s', level=logging.INFO)
@@ -39,12 +39,17 @@ def start(bot, update):
     bot.send_message(chat_id=update.message.chat_id, text="Здравствуйте!")
 
 
+def echo(bot, update):
+    update.message.reply_text(update.message.text)
+
+
 def run_bot(token):
     updater = Updater(token=token)
-    updater.dispatcher.add_error_handler(error_callback)
-    start_handler = CommandHandler('start', start)
-    updater.dispatcher.add_handler(start_handler)
+    updater.dispatcher.add_error_handler(error_callback)  
+    updater.dispatcher.add_handler(CommandHandler("start", start))
+    updater.dispatcher.add_handler(MessageHandler(Filters.text, echo))
     updater.start_polling()
+    updater.idle()
 
 
 def main():
