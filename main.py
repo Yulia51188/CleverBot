@@ -4,14 +4,10 @@ import logging
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram.error import (TelegramError, Unauthorized, BadRequest, 
                             TimedOut, ChatMigrated, NetworkError)
+from functools import partial
 
 
-logging.basicConfig(format='%(asctime)s:%(name)s:%(levelname)s - '
-    '%(message)s', level=logging.INFO)
-logger = logging.getLogger('chatbot3_logger')
-
-
-def error_callback(update, context):
+def error_callback(update, context, logger):
     logger.warning('Update "%s" caused error "%s"', update, error)
     try:
         raise context.error
@@ -43,9 +39,9 @@ def echo(bot, update):
     update.message.reply_text(update.message.text)
 
 
-def run_bot(token):
+def run_bot(token, logger):
     updater = Updater(token=token)
-    updater.dispatcher.add_error_handler(error_callback)  
+    updater.dispatcher.add_error_handler(partial(error_callback, logger=logger))  
     updater.dispatcher.add_handler(CommandHandler("start", start))
     updater.dispatcher.add_handler(MessageHandler(Filters.text, echo))
     updater.start_polling()
@@ -54,8 +50,11 @@ def run_bot(token):
 
 def main():
     load_dotenv()
+    logging.basicConfig(format='%(asctime)s:%(name)s:%(levelname)s - '
+        '%(message)s', level=logging.INFO)
+    logger = logging.getLogger('chatbot3_logger')
     bot_token = os.getenv("BOT_TOKEN")
-    run_bot(bot_token)
+    run_bot(bot_token, logger)
 
 
 if __name__=='__main__':
