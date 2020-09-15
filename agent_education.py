@@ -51,6 +51,12 @@ def create_intents_from_file(project_id, file_path, logger):
         response = client.create_intent(parent, intent)
 
 
+def train_agent(project_id, logger):
+    client = dialogflow_v2.AgentsClient()
+    parent = client.project_path(project_id)
+    response = client.train_agent(parent)
+
+
 def main():
     load_dotenv()
     logging.basicConfig(format='%(asctime)s:%(name)s:%(levelname)s - '
@@ -58,8 +64,8 @@ def main():
     logger = logging.getLogger('chatbot3_agent_education')
     training_file_path = "TrainingPhrases.json"
     project_id = os.getenv("PROGECT_ID")
-    create_intents_from_file(project_id, training_file_path, logger)  
-
+    # create_intents_from_file(project_id, training_file_path, logger)  
+    train_agent(project_id, logger)
 
 if __name__=='__main__':
     main()
