@@ -25,4 +25,5 @@ def detect_intent_texts(project_id, session_id, texts, language_code, logger):
         logger.debug('Fulfillment text: {}\n'.format(
             response.query_result.fulfillment_text)) 
         fulfillment_text = response.query_result.fulfillment_text
-        return fulfillment_text
+        is_fallback = response.query_result.intent.is_fallback
+        return (fulfillment_text, is_fallback)
