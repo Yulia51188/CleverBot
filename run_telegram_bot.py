@@ -64,6 +64,8 @@ def main():
     logging.basicConfig(format='%(asctime)s:%(name)s:%(levelname)s - '
         '%(message)s', level=logging.INFO)
     logger = logging.getLogger('chatbot3_logger')
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"]=os.getenv("GOOGLE_CREDENTIALS")
+    logger.debug(os.environ['GOOGLE_APPLICATION_CREDENTIALS'])
     bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
     project_id = os.getenv("PROGECT_ID")
     run_bot(bot_token, logger, project_id)
