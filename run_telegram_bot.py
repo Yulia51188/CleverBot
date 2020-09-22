@@ -18,8 +18,8 @@ def echo(bot, update):
     update.message.reply_text(update.message.text)
 
 
-def answer_to_message(bot, update, project_id, logger, language_code='ru-RU'):
-    fulfillment_text = detect_intent_texts(project_id, 
+def answer_to_message(bot, update, project_id, logger, language_code):
+    fulfillment_text, _is_fallback = detect_intent_texts(project_id, 
         update.message.chat_id, [update.message.text], language_code, logger)
     bot.send_message(chat_id=update.message.chat_id, text=fulfillment_text)
 
