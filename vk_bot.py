@@ -5,6 +5,16 @@ import vk_api
 from vk_api.longpoll import VkLongPoll, VkEventType
 from get_response_from_dialogflow import detect_intent_texts
 import random
+import argparse
+
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='Run VK bot intergrated '
+        'with DialogFlow')
+    parser.add_argument('--debug', action='store_true',
+        help="set logger DEBUG level")
+    parser.add_argument('--language_code', '-l', type=str, default='ru-RU',
+        help='language code for DialogFlow agent, default is "ru-RU"')
+    return parser.parse_args()
 
 
 def run_longpolling_listener(vk_group_token, logger):
@@ -62,15 +72,24 @@ def echo(event, vk):
 
 
 def main():
-    logging.basicConfig(format='%(asctime)s:%(name)s:%(levelname)s - '
-        '%(message)s', level=logging.DEBUG)
-    logger = logging.getLogger('chatbot3_logger')
+    args = parse_arguments()
+    
+    if args.debug:
+        logging.basicConfig(format='%(asctime)s:%(name)s:%(levelname)s - '
+            '%(message)s', level=logging.DEBUG)
+    else:
+        logging.basicConfig(format='%(asctime)s:%(name)s:%(levelname)s - '
+            '%(message)s', level=logging.INFO)        
+    logger = logging.getLogger('VKbot_logger')
+    
     load_dotenv()
+    
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"]=os.getenv("GOOGLE_CREDENTIALS")
     logger.debug(os.environ['GOOGLE_APPLICATION_CREDENTIALS'])
     vk_group_token = os.getenv("VK_GROUP_TOKEN")
     project_id = os.getenv("PROGECT_ID")
-    run_smart_bot(vk_group_token, logger, project_id)
+    
+    run_smart_bot(vk_group_token, logger, project_id, args.language_code)
 
 
 if __name__=='__main__':
