@@ -62,7 +62,7 @@ def main():
     else:
         logging.basicConfig(format='%(asctime)s:%(name)s:%(levelname)s - '
             '%(message)s', level=logging.INFO)     
-    logger = logging.getLogger('chatbot3_logger')
+    logger = logging.getLogger('Telegram bot logger')
 
     load_dotenv()
 
