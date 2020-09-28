@@ -3,6 +3,15 @@ import os
 import logging
 import dialogflow_v2
 from dotenv import load_dotenv
+import argparse
+
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='DialogFlow agent education')
+    parser.add_argument('training_file_path', type=str,
+        help='path to file with training phrases and intents to agent education')
+    parser.add_argument('--debug', action='store_true',
+        help='set DEBUG level of logger')
+    return parser.parse_args()
 
 
 def read_json_file(file_path, logger):
@@ -40,7 +49,7 @@ def convert_dict_to_intent(input_tuple, logger):
     return intent
 
 
-def create_intents_from_file(project_id, file_path, logger):
+def load_intents_from_file_to_agent(project_id, file_path, logger):
     intent_decriptions = read_json_file(file_path, logger)
     intents = [convert_dict_to_intent(item, logger) 
         for item in intent_decriptions.items()]
@@ -59,13 +68,15 @@ def train_agent(project_id, logger):
 
 def main():
     load_dotenv()
+    args = parse_arguments()
     logging.basicConfig(format='%(asctime)s:%(name)s:%(levelname)s - '
         '%(message)s', level=logging.DEBUG)
-    logger = logging.getLogger('chatbot3_agent_education')
-    training_file_path = "TrainingPhrases.json"
+    logger = logging.getLogger('dialogflow_agent_education')
     project_id = os.getenv("PROGECT_ID")
-    # create_intents_from_file(project_id, training_file_path, logger)  
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"]=os.getenv("GOOGLE_CREDENTIALS")
+    load_intents_from_file_to_agent(project_id, args.training_file_path, logger)
     train_agent(project_id, logger)
+
 
 if __name__=='__main__':
     main()
