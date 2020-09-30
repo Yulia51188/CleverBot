@@ -2,8 +2,9 @@ import logging
 from functools import partial
 import dialogflow_v2 as dialogflow
 
+logger = logging.getLogger('verb_game_bot')
 
-def detect_intent_texts(project_id, session_id, texts, language_code, logger):
+def detect_intent_texts(project_id, session_id, texts, language_code):
     """Returns the result of detect intent with texts as inputs.
 
     Using the same `session_id` between requests allows continuation
