@@ -22,7 +22,7 @@ def parse_arguments():
     return parser.parse_args()
 
 
-def error_callback(update, context):
+def error_callback(bot, update, context):
     logger.error('Update "%s" caused error "%s"', update, error)
 
 
@@ -65,7 +65,6 @@ def main():
     args = parse_arguments()
     load_dotenv()
 
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"]=os.getenv("GOOGLE_CREDENTIALS")
     bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
     project_id = os.getenv("PROGECT_ID")
 
