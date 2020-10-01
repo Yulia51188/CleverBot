@@ -22,7 +22,7 @@ def parse_arguments():
     return parser.parse_args()
 
 
-def error_callback(bot, update, context):
+def error_callback(bot, update, error):
     logger.error('Update "%s" caused error "%s"', update, error)
 
 
