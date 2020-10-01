@@ -84,8 +84,6 @@ def main():
     args = parse_arguments()
     load_dotenv()
     
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"]=os.getenv("GOOGLE_CREDENTIALS")
-    logger.debug(os.environ['GOOGLE_APPLICATION_CREDENTIALS'])
     vk_group_token = os.getenv("VK_GROUP_TOKEN")
     project_id = os.getenv("PROGECT_ID")
 
