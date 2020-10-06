@@ -27,13 +27,14 @@ def run_longpolling_listener(vk_group_token):
     vk_session = vk_api.VkApi(token=vk_group_token)
     longpoll = VkLongPoll(vk_session)
     for event in longpoll.listen():
-        if event.type == VkEventType.MESSAGE_NEW:
-            logger.debug('Новое сообщение:')
-            if event.to_me:
-                logger.debug(f'Для меня от: {event.user_id}')
-            else:
-                logger.debug(f'От меня для: {event.user_id}')
-            logger.debug(f'Текст: {event.text}')
+        if not event.type == VkEventType.MESSAGE_NEW:
+            continue
+        logger.debug('Новое сообщение:')
+        if event.to_me:
+            logger.debug(f'Для меня от: {event.user_id}')
+        else:
+            logger.debug(f'От меня для: {event.user_id}')
+        logger.debug(f'Текст: {event.text}')
 
 
 def run_longpolling_echobot(vk_group_token):
