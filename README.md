@@ -25,7 +25,7 @@ The Example of launch in Ubuntu is:
 
 ```bash
 $ python3 agent_education.py TrainingPhrases.json 
-$ python3 run_telegram_bot.py 
+$ python3 tg_bot.py 
 $ python3 vk_bot.py 
 ```
 Training phrases file example:
