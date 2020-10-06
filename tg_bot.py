@@ -36,7 +36,7 @@ def start(bot, update):
 
 def answer_to_message(bot, update, project_id, language_code):
     fulfillment_text, is_fallback = detect_intent_texts(project_id, 
-        update.message.chat_id, [update.message.text], language_code)
+        f"tg_{update.message.chat_id}", [update.message.text], language_code)
     bot.send_message(chat_id=update.message.chat_id, text=fulfillment_text)
     if is_fallback:
         logger.warning(f'Fallback: Telegram user {update.message.chat_id} '

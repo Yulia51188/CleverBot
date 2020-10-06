@@ -37,7 +37,7 @@ def run_smart_bot(vk_group_token, project_id, language_code='ru-RU'):
 
 def send_smart_response(event, vk, project_id, language_code):
     response_text, is_fallback = detect_intent_texts(project_id, 
-        event.user_id, [event.text], language_code)
+        f"vk_{event.user_id}", [event.text], language_code)
     logger.debug(f"Fallback: {is_fallback}")
     logger.debug(f"Answer is: {response_text}")
     if not is_fallback:
