@@ -25,30 +25,6 @@ def parse_arguments():
     return parser.parse_args()
 
 
-def run_longpolling_listener(vk_group_token):
-    vk_session = vk_api.VkApi(token=vk_group_token)
-    longpoll = VkLongPoll(vk_session)
-    for event in longpoll.listen():
-        if not event.type == VkEventType.MESSAGE_NEW:
-            continue
-        logger.debug('Новое сообщение:')
-        if event.to_me:
-            logger.debug(f'Для меня от: {event.user_id}')
-        else:
-            logger.debug(f'От меня для: {event.user_id}')
-        logger.debug(f'Текст: {event.text}')
-
-
-def run_longpolling_echobot(vk_group_token):
-    vk_session = vk_api.VkApi(token=vk_group_token)
-    longpoll = VkLongPoll(vk_session)
-    vk = vk_session.get_api()
-    for event in longpoll.listen():
-        if event.type == VkEventType.MESSAGE_NEW and event.to_me:
-            logger.debug(f"Новое сообщение от {event.user_id}: {event.text}")
-            echo(event, vk)
-
-
 def run_smart_bot(vk_group_token, project_id, language_code='ru-RU'):
     vk_session = vk_api.VkApi(token=vk_group_token)
     longpoll = VkLongPoll(vk_session)
@@ -73,14 +49,6 @@ def send_smart_response(event, vk, project_id, language_code):
     else:
         logger.warning(f'Fallback: VK user {event.user_id} message is not '
             f'recognized:\n{event.text}')
-
-
-def echo(event, vk):
-    vk.messages.send(
-        user_id=event.user_id,
-        message=event.text,
-        random_id=random.randint(1,1000)
-    )
 
 
 def main():

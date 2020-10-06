@@ -34,10 +34,6 @@ def start(bot, update):
     bot.send_message(chat_id=update.message.chat_id, text="Здравствуйте!")
 
 
-def echo(bot, update):
-    update.message.reply_text(update.message.text)
-
-
 def answer_to_message(bot, update, project_id, language_code):
     fulfillment_text, is_fallback = detect_intent_texts(project_id, 
         update.message.chat_id, [update.message.text], language_code)
