@@ -2,7 +2,7 @@
 Bot with a speech recognition support for a  training course Devman (project 3, module Chatbots)
 Try it, writing to: Telegram channel @Verb_game_support_bot or [VK group](https://vk.com/public198736597), because bots are deployed on [Heroku](heroku.com) and are available rigth now!
 
-![tg_bot_demo](https://github.com/Yulia51188/CleverBot/blob/master/tg_bot_demo_2.gif) ![vk_bot_demo](https://github.com/Yulia51188/CleverBot/blob/master/vk_bot_demo_3.gif)
+![tg_bot_demo](https://github.com/Yulia51188/CleverBot/blob/master/tg_bot_demo.gif) ![vk_bot_demo](https://github.com/Yulia51188/CleverBot/blob/master/vk_bot_demo.gif)
 
 # About
 Telegram and VK bots are integrated with service [DialogFlow](https://cloud.google.com/dialogflow/). Dialogflow CX is an advanced development suite for creating conversational AI applications, including chatbots, voicebots, and IVR bots. You can train DialogFlow agent via script `agent_education.py`. And then use the agent via API with Telegram, or VK bot, or both at the same time.
