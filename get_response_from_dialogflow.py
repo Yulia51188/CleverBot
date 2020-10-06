@@ -1,6 +1,7 @@
-import logging
-from functools import partial
 import dialogflow_v2 as dialogflow
+import logging
+
+from functools import partial
 
 logger = logging.getLogger('verb_game_bot')
 

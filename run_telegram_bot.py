@@ -1,11 +1,15 @@
-import os
-from dotenv import load_dotenv
-import logging
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
-from telegram import Bot
-from get_response_from_dialogflow import detect_intent_texts
-from functools import partial
 import argparse
+import logging
+import os
+
+from dotenv import load_dotenv
+from functools import partial
+from get_response_from_dialogflow import detect_intent_texts
+from telegram import Bot
+from telegram.ext import CommandHandler
+from telegram.ext import Filters
+from telegram.ext import MessageHandler
+from telegram.ext import Updater
 from tg_log_handler import TelegramLogsHandler
 
 

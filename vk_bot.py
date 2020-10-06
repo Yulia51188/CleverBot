@@ -1,13 +1,15 @@
-import os
-from dotenv import load_dotenv
-import logging
-import vk_api
-from vk_api.longpoll import VkLongPoll, VkEventType
-from get_response_from_dialogflow import detect_intent_texts
-import random
 import argparse
-from tg_log_handler import TelegramLogsHandler
+import logging
+import os
+import random
+import vk_api
+
+from dotenv import load_dotenv
+from get_response_from_dialogflow import detect_intent_texts
 from telegram import Bot
+from tg_log_handler import TelegramLogsHandler
+from vk_api.longpoll import VkEventType
+from vk_api.longpoll import VkLongPoll
 
 
 logger = logging.getLogger('verb_game_bot')
