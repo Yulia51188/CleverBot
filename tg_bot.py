@@ -67,15 +67,10 @@ def main():
 
     bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
     project_id = os.getenv("PROGECT_ID")
-
-    if args.debug:
-        logging.basicConfig(format='%(asctime)s:%(name)s:%(levelname)s - '
-            '%(message)s', level=logging.DEBUG)
-    else:
-        logging.basicConfig(format='%(asctime)s:%(name)s:%(levelname)s - '
-            '%(message)s', level=logging.WARNING)     
     
-
+    log_level = args.debug and logging.DEBUG or logging.WARNING
+    logging.basicConfig(format='%(asctime)s:%(name)s:%(levelname)s - '
+        '%(message)s', level=log_level)  
     log_bot_token = os.getenv("LOG_BOT_TOKEN")
     log_bot_chat_id = os.getenv("LOG_CHAT_ID")
     tg_handler = TelegramLogsHandler(Bot(token=log_bot_token), log_bot_chat_id)
